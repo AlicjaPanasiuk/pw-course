@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { loginData } from "../test-data/login.data";
 
 test.describe("Pulpit tests", () => {
@@ -19,6 +19,7 @@ test.describe("Pulpit tests", () => {
     const transferAccount = "12345678901234567890123456";
     const transferAmount = "200";
     const transferTitle = "testowy przelew";
+    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla Jan Nowak`;
     // Act:
     await page.getByTestId("transfer_receiver").fill(transferReceiver);
     await page.getByTestId("form_account_to").fill(transferAccount);
@@ -27,5 +28,6 @@ test.describe("Pulpit tests", () => {
     await page.getByTestId("close-button").click();
 
     // Assert
+    await expect(page.locator("#show_messages")).toHaveText(expectedMessage);
   });
 });
