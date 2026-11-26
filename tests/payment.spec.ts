@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { loginData } from "../test-data/login.data";
 
-test.describe("Pulpit tests", () => {
+test.describe("Payment tests", () => {
   test.beforeEach(async ({ page }) => {
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
@@ -19,7 +19,7 @@ test.describe("Pulpit tests", () => {
     const transferAccount = "12345678901234567890123456";
     const transferAmount = "200";
     const transferTitle = "testowy przelew";
-    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla Jan Nowak`;
+    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
     // Act:
     await page.getByTestId("transfer_receiver").fill(transferReceiver);
     await page.getByTestId("form_account_to").fill(transferAccount);
